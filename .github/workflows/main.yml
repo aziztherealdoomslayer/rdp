@@ -10,13 +10,27 @@ jobs:
     timeout-minutes: 360
 
     steps:
+      - name: Checkout Repository (Optional)
+        uses: actions/checkout@v4
+
       - name: Downloading & Installing Essentials
         run: |
           Invoke-WebRequest -Uri "https://gitlab.com/raposabrty/pcrdo/-/raw/main/Downloads.bat" -OutFile "Downloads.bat"
           cmd /c Downloads.bat
 
       - name: Show Website
-        run: cmd /c show.bat
+        run: |
+          if exist show.bat (
+            cmd /c show.bat
+          ) else (
+            echo "show.bat not found!"
+          )
 
-      - name: TimeCounter
-        run: cmd /c loop.bat
+      - name: Time Counter
+        run: |
+          if exist loop.bat (
+            cmd /c loop.bat
+          ) else (
+            echo "loop.bat not found!"
+          )
+
